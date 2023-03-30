@@ -1,0 +1,53 @@
+.container{
+    width: 90%;
+    margin: 0 auto;
+  }
+
+#Header{
+    background-color: #232227;
+}
+.Header{
+    height: 60px;
+}
+.Header svg{
+    color: white;
+}
+
+.h-l {
+    gap: 20px;
+}
+
+.h-li.search{
+    gap: 10px;
+}
+
+.h-li.search input{
+    padding-bottom: 2px;
+    border: none;
+    /* color: inherit; */
+    background-color: inherit;
+    color: white;
+    outline: none;
+}
+
+.h-r{
+    gap: 20px;
+}
+
+.h-ri{
+    position: relative;
+}
+
+.h-ri span{
+    display: flex;
+    padding: 7px;
+    border-radius: 50%;
+    /* gap: 9px; */
+    width: 25px;
+    align-items: center;
+    height: 25px;
+    background-color: aliceblue;
+    position: absolute;
+    top: -14px;
+    right: -14px;
+}

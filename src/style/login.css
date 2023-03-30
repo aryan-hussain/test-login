@@ -1,0 +1,77 @@
+#signin{
+  background-color: #151419;
+}
+
+.signin{
+  color: white;
+  height: 100vh;
+}
+
+
+
+.si-l{
+  flex-basis: 100%;
+  align-items: flex-start;
+}
+
+.si-l .form{
+  padding: 0 30px;
+}
+
+.si-r{
+  background: url("https://www.bootstrapdash.com/demo/skydash/template/images/auth/login-bg.jpg");
+  background-size: cover;
+  flex-basis: 100%;
+}
+
+.si-r p{
+  align-self: flex-end;
+  padding-bottom: 20px;
+}
+
+.si-labels{
+  display: flex;
+  justify-content: space-between;
+  gap: 55px;
+  padding-bottom: 35px;
+  align-items: center;
+}
+
+.si-labels input{
+  border: 1px solid white;
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  background-color: inherit;
+  color: white;
+}
+
+#signin .form button{
+  padding: 20px;
+  border-radius: 6px;
+  border: none;
+  font-weight: 800;
+  background-color: #4B49AC;
+  color: white;
+  width: 138px;
+  margin-bottom: 50px;
+}
+
+#signin .form{
+  margin-top: 10px;
+}
+
+#signin .form p{
+  padding-bottom: 35px;
+}
+
+#signin .form h1{
+  padding-bottom: 20px;
+}
+
+#signin .form img{
+  padding-bottom: 20px;
+  /* margin-top: -5px; */
+  /* margin-bottom: 20px; */
+  width: 200px;
+}

@@ -1,0 +1,70 @@
+#signup{
+    background-color: #151419;
+}
+
+.signup{
+    color: white;
+    height: 100vh;
+}
+
+.su-l{
+    flex-basis: 100%;
+}
+
+.su-l .form{
+    padding: 0 35px;
+}
+
+.su-r{
+    background: url("https://www.bootstrapdash.com/demo/skydash/template/images/auth/register-bg.jpg");
+    flex-basis: 100%;
+}
+
+.su-r p{
+    align-self: flex-end;
+    padding-bottom: 20px;
+}
+
+.su-labels{
+    display: flex;
+    justify-content: space-between;
+    gap: 55px;
+    padding-bottom: 12px;
+    align-items: center;
+}
+
+.su-labels input{
+    border: 1px solid white;
+    border-radius: 10px;
+    outline: none;
+    padding: 10px;
+    background-color: inherit;
+    color: white;
+}
+
+#signup .form button{
+    padding: 20px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 800;
+    background-color: #4B49AC;
+    color: white;
+    width: 138px;
+    margin-bottom: 15px;
+}
+
+#signup .form p{
+    padding-bottom: 20px;
+}
+
+#signup .form h1{
+    padding-bottom: 20px;
+}
+
+#signup .form img{
+    margin-top: 15px;
+    padding-bottom: 20px;
+    /* margin-top: -5px; */
+    /* margin-bottom: 20px; */
+    width: 200px;
+}

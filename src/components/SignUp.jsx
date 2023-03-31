@@ -4,13 +4,9 @@ import * as Yup from "yup";
 import axios from "axios";
 import styled from "styled-components";
 import "../style/signup.css";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const SignupForm = () => {
-
-  const history = useNavigate();
-
   const initialValues = {
     name: "",
     username: "",
@@ -39,28 +35,23 @@ const SignupForm = () => {
     const userData = {
       // name: values.name,
       username: values.username,
-      phone: values.phoneNumber,
       email: values.email,
-      // address: values.address,
       password: values.password,
-      confirmPassword: values.password,
+      phonenumber: values.phoneNumber,
+      address: values.address,
     };
     console.log(userData);
     try {
-      const response = await axios.post("http://10.8.10.149:3000/user/register", userData);
+      const response = await axios.post("http://10.8.10.40:5000/user/signup", userData,{
+        headers:{
+          'Content-Type': "applications/json"
+        }
+      });
       console.log(response.data);
       resetForm();
-      toast.success("Added Successfully", {
-        position: "bottom-left",
-      });
-      history("/home")
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong", { position: "bottom-left" });
     } 
-    finally {
-      setSubmitting(false);
-    }
   };
 
   return (
@@ -69,7 +60,7 @@ const SignupForm = () => {
         <div className="su-l d-f j-c-c a-i-c">
           <div className="form">
             <img src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg" alt="" />
-            
+            <h1>Sign Up</h1>
             <p>New here? Join us today! <br />It takes only few steps</p>
             <Formik
               initialValues={initialValues}
@@ -78,11 +69,11 @@ const SignupForm = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  {/* <div className="su-labels">
+                  <div className="su-labels">
                     <label htmlFor="name">Name</label>
                     <Field type="text" name="name" placeholder="Name" />
                     <ErrorMessage name="name" />
-                  </div> */}
+                  </div>
                   <div className="su-labels">
                     <label htmlFor="username">Username</label>
                     <Field type="text" name="username" placeholder="Username" />
@@ -125,18 +116,14 @@ const SignupForm = () => {
                     <Field type="text" name="address" placeholder="Address" />
                     <ErrorMessage name="address" />
                   </div>
-                  <div style={{gap:'20px' }} className="d-f">
                   <button type="submit" disabled={isSubmitting}>
                     Submit
-                  </button><p style={{alignSelf:'center'}}>Already account? <Link to="/login"><a href="">Login</a></Link> </p></div>
-                  {/* <Link to={"/home"}><button type="submit" disabled={isSubmitting}>
-                    Submit
-                  </button></Link>  */}
+                  </button>
                 </Form>
                 
               )}
             </Formik>
-            
+            <p>Already account? <Link to="/login"><a href="">Login</a></Link> </p>
           </div>
         </div>
         <div className="su-r d-f j-c-c">

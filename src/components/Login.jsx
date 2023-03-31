@@ -34,18 +34,19 @@ const LoginForm = () => {
       const response = await axios.post("http://10.8.10.149:3000/user/login", userData);
       console.log(response.data);
       resetForm();
-      toast.success("Added Successfully", {
+      toast.success("Login Successfully", {
         position: "bottom-left",
       });
       history("/home");
     } 
     catch (error) {
       console.error(error);
-      toast.error("Something went wrong", { position: "bottom-left" });
-    } 
+      toast.error(`${error}`, { position: "bottom-left" });
+    }
+
   };
 
-// finally {setSubmitting(false);  }
+
 
   return (
     <section id="signin">

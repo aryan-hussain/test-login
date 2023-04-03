@@ -16,7 +16,7 @@ const Sidebar = () => {
                         <a href="" className="nav-link">Home</a>
                     </li>
                     <li className="nav-item active">
-                        <a href="" className="nav-link">Dashboard</a>
+                       <Link to={"/admin/login"} className="nav-link"> Dashboard</Link> 
                     </li>
                     <li className="nav-item active">
                         <a href="" className="nav-link">Products</a>

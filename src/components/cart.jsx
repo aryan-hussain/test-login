@@ -9,6 +9,7 @@ import {
 } from "../slices/cartSlice";
 
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -18,11 +19,55 @@ const Cart = () => {
     dispatch(getTotals());
   }, [cart, dispatch]);
 
+  function plus(product) {
+
+    console.log(product)
+
+    axios
+      .post("http://10.8.10.149:3000/cart/addItem", {
+        productId: product.id,
+        // name: product.name,
+        // price: product.price,
+        // add any other product data you need to send
+      })
+      .then((response) => {
+        console.log(response.data);
+        // handle success, e.g. show a success message
+      })
+      .catch((error) => {
+        console.log(error);
+        // handle error, e.g. show an error message
+      });
+  }
+
+  function minus(product) {
+
+    console.log(product)
+    
+    axios
+      .post("http://10.8.10.149:3000/cart/removeOne", {
+        productId: product.id,
+        // name: product.name,
+        // price: product.price,
+        // add any other product data you need to send
+      })
+      .then((response) => {
+        console.log(response.data);
+        // handle success, e.g. show a success message
+      })
+      .catch((error) => {
+        console.log(error);
+        // handle error, e.g. show an error message
+      });
+  }
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    plus(product)
   };
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
+    minus(product)
   };
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));

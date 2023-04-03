@@ -17,8 +17,11 @@ import Sidebar from "./components/Sidebar";
 import Body from "./components/Body";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import AdminLogin from "./components/AdminLogin";
+import AdminDashboard from "./components/AdminDashboard"
 
-
+// const [userId, setuserId] = useState("");
 
 const store = configureStore({
   reducer: {
@@ -42,7 +45,9 @@ root.render(
       <Routes>
         <Route path="/" element={<SignupForm />} />
         <Route path="/home" element={<App />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/admin/login" element={<AdminLogin  />} />
+        <Route path="/login" element={<Login  />} />
         <Route path="/home/cart" element={<><Header /> <Cart /></>} />
 
       </Routes>

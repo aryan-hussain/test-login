@@ -9,8 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
 
-const LoginForm = (props) => {
-
+const AdminLogin = () => {
   // const [userId, setuserId] = useState("")
 
   const history = useNavigate();
@@ -34,23 +33,22 @@ const LoginForm = (props) => {
     };
     console.log(userData);
     try {
-      const response = await axios.post("http://10.8.10.149:3000/user/login", userData);
-      console.log(response.data.data[0]);
+      const response = await axios.post(
+        "http://10.8.10.149:3000/user/login",
+        userData
+      );
+      console.log(response.data);
       // setuserId(response.data.data[0])
       resetForm();
       toast.success("Login Successfully", {
         position: "bottom-left",
       });
-      history("/home");
-    } 
-    catch (error) {
+      history("/admin/dashboard");
+    } catch (error) {
       console.error(error);
       toast.error(`${error}`, { position: "bottom-left" });
     }
-
   };
-
-
 
   return (
     <section id="signin">
@@ -61,10 +59,10 @@ const LoginForm = (props) => {
               src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg"
               alt=""
             />
-            <h1>Sign Up</h1>
+            <h1>Login</h1>
             <p>
-              New here? Join us today! <br />
-              It takes only few steps
+              Are you admin? <br />
+              It takes only few steps to login
             </p>
             <Formik
               initialValues={initialValues}
@@ -110,21 +108,4 @@ const LoginForm = (props) => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-`;
-
-
-
-const ErrorMessagex = styled(ErrorMessage)`
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-`;
-
-
-
-export default LoginForm;
+export default AdminLogin;

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 const SignupForm = () => {
   const initialValues = {
-    name: "",
+    // name: "",
     username: "",
     email: "",
     password: "",
@@ -18,7 +18,7 @@ const SignupForm = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required("Name is required"),
+    // name: Yup.string().required("Name is required"),
     username: Yup.string().required("Username is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
     password: Yup.string()
@@ -32,22 +32,23 @@ const SignupForm = () => {
   });
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+
+    
+
     const userData = {
       // name: values.name,
       username: values.username,
       email: values.email,
       password: values.password,
-      phonenumber: values.phoneNumber,
-      address: values.address,
+      phone: values.phoneNumber,
+      confirmPassword: values.confirmPassword,
+      // address: values.address,
     };
     console.log(userData);
     try {
-      const response = await axios.post("http://10.8.10.40:5000/user/signup", userData,{
-        headers:{
-          'Content-Type': "applications/json"
-        }
-      });
+      const response = await axios.post("http://10.8.10.149:3000/user/register", userData);
       console.log(response.data);
+      
       resetForm();
     } catch (error) {
       console.error(error);
@@ -60,7 +61,7 @@ const SignupForm = () => {
         <div className="su-l d-f j-c-c a-i-c">
           <div className="form">
             <img src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg" alt="" />
-            <h1>Sign Up</h1>
+            
             <p>New here? Join us today! <br />It takes only few steps</p>
             <Formik
               initialValues={initialValues}
@@ -69,11 +70,7 @@ const SignupForm = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  <div className="su-labels">
-                    <label htmlFor="name">Name</label>
-                    <Field type="text" name="name" placeholder="Name" />
-                    <ErrorMessage name="name" />
-                  </div>
+                  
                   <div className="su-labels">
                     <label htmlFor="username">Username</label>
                     <Field type="text" name="username" placeholder="Username" />

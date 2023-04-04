@@ -5,8 +5,11 @@ import axios from "axios";
 import styled from "styled-components";
 import "../style/signup.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const SignupForm = () => {
+  const history = useNavigate();
   const initialValues = {
     // name: "",
     username: "",
@@ -19,22 +22,29 @@ const SignupForm = () => {
 
   const validationSchema = Yup.object().shape({
     // name: Yup.string().required("Name is required"),
-    username: Yup.string().required("Username is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    username: Yup.string().required("* Username is required"),
+    email: Yup.string().email("Invalid email").required("* Email is required"),
     password: Yup.string()
-      .required("Password is required")
-      .min(6, "Password must be at least 6 characters"),
+      .required("* Password is required")
+      .matches(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        "* Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+      )
+      .min(6, "* Password must be at least 6 characters"),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], "Passwords must match")
-      .required("Confirm Password is required"),
-    phoneNumber: Yup.string().required("Phone Number is required"),
-    address: Yup.string().required("Address is required"),
+      .oneOf([Yup.ref("password"), null], "* Passwords must match")
+      .matches(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+        " *Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+      )
+      .required("* Confirm Password is required"),
+    phoneNumber: Yup.string()
+      .required("* Phone Number is required")
+      .matches(/^\d{10}$/, "* Phone number must be number and have exactly 10 digits"),
+    address: Yup.string().required("* Address is required"),
   });
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-
-    
-
     const userData = {
       // name: values.name,
       username: values.username,
@@ -46,13 +56,20 @@ const SignupForm = () => {
     };
     console.log(userData);
     try {
-      const response = await axios.post("http://10.8.10.149:3000/user/register", userData);
+      const response = await axios.post(
+        "http://10.8.10.40:5000/user/signup",
+        userData
+      );
       console.log(response.data);
-      
       resetForm();
+      toast.success("Login Successfully", {
+        position: "bottom-left",
+      });
+      history("/home");
     } catch (error) {
       console.error(error);
-    } 
+      toast.error(`${error}`, { position: "bottom-left" });
+    }
   };
 
   return (
@@ -60,9 +77,15 @@ const SignupForm = () => {
       <div className="signup d-f">
         <div className="su-l d-f j-c-c a-i-c">
           <div className="form">
-            <img src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg" alt="" />
-            
-            <p>New here? Join us today! <br />It takes only few steps</p>
+            <img
+              src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg"
+              alt=""
+            />
+
+            <p>
+              New here? Join us today! <br />
+              It takes only few steps
+            </p>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -70,57 +93,79 @@ const SignupForm = () => {
             >
               {({ isSubmitting }) => (
                 <Form>
-                  
                   <div className="su-labels">
                     <label htmlFor="username">Username</label>
-                    <Field type="text" name="username" placeholder="Username" />
-                    <ErrorMessage name="username" />
+                    <div className="error-div">
+                      <Field
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                      />
+                      <ErrorMessage component={ErrorMsg} name="username" />
+                    </div>
                   </div>
                   <div className="su-labels">
                     <label htmlFor="email">Email</label>
-                    <Field type="email" name="email" placeholder="Email" />
-                    <ErrorMessage name="email" />
+                    <div className="error-div">
+                      <Field type="email" name="email" placeholder="Email" />
+                      <ErrorMessage component={ErrorMsg} name="email" />
+                    </div>
                   </div>
                   <div className="su-labels">
                     <label htmlFor="password">Password</label>
-                    <Field
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                    />
-                    <ErrorMessage name="password" />
+                    <div className="error-div">
+                      <Field
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                      />
+                      <ErrorMessage component={ErrorMsg} name="password" />
+                    </div>
                   </div>
                   <div className="su-labels">
                     <label htmlFor="confirmPassword">Confirm Password</label>
-                    <Field
-                      type="password"
-                      name="confirmPassword"
-                      placeholder="Confirm Password"
-                    />
-                    <ErrorMessage name="confirmPassword" />
+                    <div className="error-div">
+                      <Field
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                      />
+                      <ErrorMessage
+                        component={ErrorMsg}
+                        name="confirmPassword"
+                      />
+                    </div>
                   </div>
                   <div className="su-labels">
                     <label htmlFor="phoneNumber">Phone Number</label>
-                    <Field
-                      type="text"
-                      name="phoneNumber"
-                      placeholder="Phone Number"
-                    />
-                    <ErrorMessage name="phoneNumber" />
+                    <div className="error-div">
+                      <Field
+                        type="text"
+                        name="phoneNumber"
+                        placeholder="Phone Number"
+                      />
+                      <ErrorMessage component={ErrorMsg} name="phoneNumber" />
+                    </div>
                   </div>
                   <div className="su-labels">
                     <label htmlFor="address">Address</label>
-                    <Field type="text" name="address" placeholder="Address" />
-                    <ErrorMessage name="address" />
+                    <div className="error-div">
+                      <Field type="text" name="address" placeholder="Address" />
+                      <ErrorMessage component={ErrorMsg} name="address" />
+                    </div>
                   </div>
                   <button type="submit" disabled={isSubmitting}>
                     Submit
                   </button>
                 </Form>
-                
               )}
             </Formik>
-            <p>Already account? <Link to="/login"><a href="">Login</a></Link> </p>
+            <p>
+              Already account?{" "}
+              <Link to="/login">
+                <a href="">Login</a>
+              </Link>{" "}
+            </p>
           </div>
         </div>
         <div className="su-r d-f j-c-c">
@@ -131,74 +176,13 @@ const SignupForm = () => {
   );
 };
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-`;
-
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 30px;
-`;
-
-const FormTitle = styled.h1`
-  font-size: 28px;
-  margin-bottom: 30px;
-`;
-
-const FormGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  font-size: 16px;
-  margin-bottom: 5px;
-`;
-
-const Input = styled(Field)`
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-
-  &:focus {
-    outline: none;
-    border-color: #007bff;
-  }
-`;
-
-const ErrorMessagex = styled(ErrorMessage)`
+const ErrorMsg = styled.div`
   color: red;
-  font-size: 14px;
+  font-size: 12px;
   margin-top: 5px;
-`;
-
-const SubmitButton = styled.button`
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #0069d9;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
+  // position: absolute;
+  // top: 28px;
+  // left: 0px;
 `;
 
 export default SignupForm;

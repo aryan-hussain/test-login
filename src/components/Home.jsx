@@ -14,7 +14,7 @@ const Home = () => {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    console.log(product)
+    console.log(product);
     addToCart2(product);
     history("/home/cart");
   };
@@ -26,9 +26,9 @@ const Home = () => {
         name: product.name,
         // userid: response.data.data[0],
         price: product.price,
-        image:product.image,
+        image: product.image,
+
         
-        // add any other product data you need to send
       })
       .then((response) => {
         console.log(response.data);
@@ -44,22 +44,30 @@ const Home = () => {
     <div className="home-container">
       {status === "success" ? (
         <>
-          <h2>New Arrivals</h2>
+          <h2>Today's Deals</h2>
           <div className="products">
-            {data &&
-              data?.map((product) => (
-                <div key={product.id} className="product">
-                  <h3>{product.name}</h3>
-                  <img src={product.image} alt={product.name} />
-                  <div className="details">
-                    <span>{product.desc}</span>
-                    <span className="price">${product.price}</span>
+              {data &&
+                data?.map((product) => (
+                  <div key={product.id} className="product">
+                    <h3>{product.name}</h3>
+                    <img src={product.image} alt={product.name} />
+                    <div className="details">
+                      <span
+                        style={{
+                          overflow: "hidden",
+                          height: "88px",
+                          fontSize: "12px",
+                        }}
+                      >
+                        {product.desc}
+                      </span>
+                      <span className="price">${product.price}</span>
+                    </div>
+                    <button onClick={() => handleAddToCart(product)}>
+                      Add To Cart
+                    </button>
                   </div>
-                  <button onClick={() => handleAddToCart(product)}>
-                    Add To Cart
-                  </button>
-                </div>
-              ))}
+                ))}
           </div>
         </>
       ) : status === "pending" ? (

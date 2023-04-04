@@ -96,8 +96,8 @@ const LoginForm = (props) => {
             </Formik>
             <p>
               Not have account? Create new account
-              <Link to="/">
-                <a href="">Click Me</a>
+              <Link to="/signup">
+                Click Me
               </Link>
             </p>
           </div>

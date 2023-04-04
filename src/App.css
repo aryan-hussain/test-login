@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&display=swap");
 
-
-/* Not Found */
 .not-found {
   display: flex;
   flex-direction: column;
@@ -56,11 +54,30 @@
 
 .home-container {
   padding: 2rem 4rem;
+
+  background: -webkit-linear-gradient(
+    to right,
+    #232227,
+    #bdc3c7
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #232227,
+    #bdc3c7,
+    #232227
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  background-size: cover;
 }
 .home-container h2 {
   font-size: 40px;
+  background: #313131;
+  padding-left: 30px;
+  color: white;
+
+  font-size: 30px;
   font-weight: 400;
-  text-align: center;
+  /* text-align: center; */
 }
 .products {
   display: flex;
@@ -70,6 +87,7 @@
 }
 .product {
   display: flex;
+  background: #ffffffbd;
   flex-direction: column;
   justify-content: space-between;
   margin: 1rem auto;
@@ -78,21 +96,25 @@
   width: 250px;
   max-width: 100%;
   height: 400px;
-  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+  box-shadow: -5px -5px 10px rgba(0, 0, 0, 0.5),
     2px 2px 5px rgba(94, 104, 121, 0.3);
 }
 .product h3 {
-  font-size: 25px;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  letter-spacing: 1px;
   font-weight: 400;
 }
 .product img {
-  width: 80%;
-  margin-top: 1rem;
+  width: 69%;
+  /* margin-top: 1rem; */
+  height: 150px;
   margin-left: auto;
   margin-right: auto;
 }
 .product .details {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
 }
@@ -104,10 +126,10 @@
   width: 100%;
   height: 40px;
   border-radius: 5px;
-  margin-top: 2rem;
+  /* margin-top: 2rem; */
   font-weight: 400;
   letter-spacing: 1.15px;
-  background-color: #4b70e2;
+  background-color: #545454;
   color: #f9f9f9;
   border: none;
   outline: none;
@@ -117,10 +139,13 @@
 /* Cart */
 .cart-container {
   padding: 2rem 4rem;
+  background: url("./assets/colorful-shopping-bags.jpg");
+  background-size: 100% 100%;
+  /* background-repeat: no-repeat; */
 }
 .cart-container h2 {
   font-weight: 400;
-  font-size: 30px;
+
   text-align: center;
 }
 .cart-container .titles {
@@ -220,6 +245,9 @@
 .cart-checkout {
   width: 270px;
   max-width: 100%;
+  background-color: #ffffffe3;
+  padding: 20px;
+  border-radius: 5px;
 }
 .cart-checkout .subtotal {
   display: flex;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../style/Adminboard.css';
+import Header from './Header'
 
 const AddProductForm = () => {
   const [name, setName] = useState('');
@@ -27,7 +28,9 @@ const AddProductForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="add-product-form">
+    <>
+    <Header />
+    <form style={{margintop:"30px"}} onSubmit={handleSubmit} className="add-product-form">
       <label className="form-label">
         Name:
         <input type="text" value={name} onChange={e => setName(e.target.value)} className="form-input" />
@@ -50,6 +53,7 @@ const AddProductForm = () => {
       </label>response
       <button type="submit" className="form-button">Add Product</button>
     </form>
+    </>
   );
 };
 

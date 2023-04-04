@@ -2,6 +2,12 @@
     background-color: #151419;
 }
 
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
 .signup{
     color: white;
     /* height: 100vh; */
@@ -25,12 +31,19 @@
     padding-bottom: 20px;
 }
 
+
+
 .su-labels{
     display: flex;
     justify-content: space-between;
     gap: 55px;
-    padding-bottom: 12px;
+    position: relative;
+    padding-bottom: 14.3px;
     align-items: center;
+}
+
+.su-labels .error-div{
+    text-align: end;
 }
 
 .su-labels input{

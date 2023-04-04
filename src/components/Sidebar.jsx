@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/sidebar.css';
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const Sidebar = () => {
   return (
@@ -13,17 +13,18 @@ const Sidebar = () => {
                 </div>
                 <ul className="nav d-f flex-d-c">
                     <li className="nav-item active">
-                        <a href="" className="nav-link">Home</a>
+                        <Link to={"/home"} className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item active">
                        <Link to={"/admin/login"} className="nav-link"> Dashboard</Link> 
                     </li>
                     <li className="nav-item active">
-                        <a href="" className="nav-link">Products</a>
+                        <Link to={"/home/products"} className="nav-link">Products</Link>
                     </li>
                     <li className="nav-item active">
-                        <Link to={"/"}><a href="" className="nav-link">Log out</a></Link>
+                        <Link className="nav-link" to={"/login"}>Log out</Link>
                     </li>
+                    <Outlet />
                 </ul>
             </div>
         </div>

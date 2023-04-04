@@ -11,12 +11,12 @@ const Body = () => {
     <>
       <section id="body">
         <Header />
-        
-          <Home />
-          
-          {/* <Route path="/home/cart" element={<Cart />} />
-          <Route path="/" exact element={<Home />} /> */}
-        
+
+        <Home />
+        {/* <Routes>
+          <Route path="/home/cart" element={<Cart />} />
+          <Route path="/" exact element={<Home />} />
+        </Routes> */}
       </section>
     </>
   );

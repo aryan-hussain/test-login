@@ -7,10 +7,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
+    
     <div className="App">
       <div id="App" className="d-f">
         <Sidebar />
+        
         <Body />
+
+        
       </div>
     </div>
   );

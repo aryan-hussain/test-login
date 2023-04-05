@@ -1,15 +1,15 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
-export const productsApi = createApi({
-  reducerPath: "productsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://10.8.10.69:3001" }),
+export const catagoryApi = createApi({
+  reducerPath: "catagoryApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "" }),
   endpoints: (builder) => ({
     getAllProducts: builder.query({
-      query: () => `user/category/list`,
+      query: () => ``,
     }),
   }),
 });
 
-console.log(productsApi)
-export const { useGetAllCatagoryQuery } = productsApi;
+console.log(catagoryApi)
+export const { useGetAllCatagoryQuery } = catagoryApi;

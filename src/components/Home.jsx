@@ -5,7 +5,6 @@ import { useGetAllProductsQuery } from "../slices/productsApi";
 import axios from "axios";
 
 const Home = () => {
-  const { items: products, status } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const history = useNavigate();
 
@@ -22,9 +21,8 @@ const Home = () => {
   function addToCart2(product) {
     axios
       .post("http://10.8.10.149:3000/cart/addItem", {
-        _id: product.id,
+        id: product.id,
         name: product.name,
-        // userid: response.data.data[0],
         price: product.price,
         image: product.image,
 
@@ -32,17 +30,17 @@ const Home = () => {
       })
       .then((response) => {
         console.log(response.data);
-        // handle success, e.g. show a success message
+        
       })
       .catch((error) => {
         console.log(error);
-        // handle error, e.g. show an error message
+        
       });
   }
 
   return (
     <div className="home-container">
-      {status === "success" ? (
+      {"success" ? (
         <>
           <h2>Today's Deals</h2>
           <div className="products">
@@ -70,7 +68,7 @@ const Home = () => {
                 ))}
           </div>
         </>
-      ) : status === "pending" ? (
+      ) : "pending" ? (
         <p>Loading...</p>
       ) : (
         <p>Unexpected error occured...</p>

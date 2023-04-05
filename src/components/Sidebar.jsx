@@ -24,7 +24,6 @@ const Sidebar = () => {
                     <li className="nav-item active">
                         <Link className="nav-link" to={"/login"}>Log out</Link>
                     </li>
-                    <Outlet />
                 </ul>
             </div>
         </div>

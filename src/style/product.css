@@ -1,0 +1,64 @@
+#pproduct .pproduct{
+    width: 100%;
+}
+
+.heading{
+    margin-bottom: -107px;
+}
+
+.product-items{
+    
+}
+
+.pproduct h2{
+    font-size: 27px;
+    font-weight: 800;
+    padding: 15px 0;
+    color: #313131;
+    font-family: sans-serif;
+}
+
+.pi-l{
+    
+}
+
+.pi-l-inner{
+
+    position: relative;
+    top: 50vh;
+    left: 40%;
+    width: 248px;
+    text-align: center;
+    flex-direction: column;
+    display: flex;
+    
+}
+
+.pi-l-inner h4{
+    font-size: 42px;
+    color: white;
+    display: inline-block;
+    font-weight: 800;
+    font-family: sans-serif;
+}
+
+.pi-l-img{
+    /* height: 79vh; */
+}
+
+.pi-l-img img{
+    width: 100%;
+    height: 98vh;
+}
+
+.pi-l-inner button{
+    background-color: #83601e82;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 1px 2px 5px 1px;
+}

@@ -1,118 +1,64 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { addToCart } from "../slices/cartSlice";
 import { useGetAllCatagoryQuery } from "../slices/catagoryApi";
 import axios from "axios";
+import { setProducts, fetchProducts } from "../slices/itemsApi";
+import useFetch from "../hooks/useFetch";
+import "../style/product.css";
 
 const Product = () => {
-  const { items: products, status } = useSelector((state) => state.products);
+  // const { items: products, status } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const history = useNavigate();
 
-  const { data, error, isLoading } = useGetAllCatagoryQuery();
-  console.log("Api", isLoading);
+  // const { data, error, isLoading } = useGetAllCatagoryQuery();
+  // console.log("Api", isLoading);
+
+  const { data, loading, error } = useFetch(
+    `http://10.8.10.40:5000/category/getCategory`
+  );
+
+  console.log(data);
+
+  // const products = useSelector((state) => state.products);
+  // console.log(products);
+
+  // dispatch(setProducts(fetchProducts()));
 
   return (
     <>
-      <section id="product">
+      <section id="pproduct">
         <div className="container">
-          <div className="product">
+          <div className="pproduct">
             <div className="heading">
               <h2>Shop by Catagory</h2>
             </div>
-            <div className="homeDecor">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul>
-                    {data &&
-                      data?.map((product) => (
-                        <div key={product.id} className="product">
-                          <h3>{product.name}</h3>
-                          <img src={product.image} alt={product.name} />
-                          <div className="details">
-                            <span
-                              style={{
-                                overflow: "hidden",
-                                height: "88px",
-                                fontSize: "12px",
-                              }}
-                            >
-                              {product.desc}
-                            </span>
-                            <span className="price">${product.price}</span>
-                          </div>
-                          
+            <div className="ShopcatWrapper">
+              {data?.map((item) => (
+                <div className="ShopcatItem" key={item.id}>
+                  
+                    <div className="product-items">
+                      <div className="pi-l">
+                        <div className="pi-l-inner">
+                          <h4>{item.title}</h4>
+                          <button>VIEW ALL</button>
                         </div>
-                      ))}
-                  </ul>
+                        <div className="pi-l-img">
+                          <img src={item.image} alt="" />
+                        </div>
+                      </div>
+                      <div className="pi-r">
+                        <ul></ul>
+                      </div>
+                    </div>
+                  
                 </div>
-              </div>
+              ))}
             </div>
-
-            <div className="Fashion">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul></ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="Grocery">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul></ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="Electronics">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul></ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="Beauty & Make up">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul></ul>
-                </div>
-              </div>
-            </div>
-
-            <div className="Appliance">
-              <div className="product-items">
-                <div className="pi-l">
-                  <h4>Home Decor and more</h4>
-                  <button>VIEW ALL</button>
-                </div>
-                <div className="pi-r">
-                  <ul></ul>
-                </div>
-              </div>
-            </div>
+              
+            
           </div>
         </div>
       </section>

@@ -17,6 +17,8 @@
 
 .sidebar .nav{
     gap: 15px;
+    position: fixed;
+    width: 17%;
 }
 
 .sidebar{
@@ -38,8 +40,13 @@ li.nav-item.active {
     padding: 15px;
     /* border: 1px solid; */
     border-radius: 11px;
+    /* background-color: #4B49AC; */
 }
 
 li.nav-item.active:hover{
+    background-color: #4B49AC;
+}
+
+li.nav-item.active:clicked{
     background-color: #4B49AC;
 }

@@ -2,8 +2,12 @@
     width: 100%;
 }
 
+.ShopcatItem{
+    margin-bottom: 30px;
+}
+
 .heading{
-    margin-bottom: -107px;
+    /* margin-bottom: -107px; */
 }
 
 .product-items{
@@ -19,12 +23,12 @@
 }
 
 .pi-l{
-    
+    position: relative;
 }
 
 .pi-l-inner{
 
-    position: relative;
+    position: absolute;
     top: 50vh;
     left: 40%;
     width: 248px;
@@ -37,6 +41,8 @@
 .pi-l-inner h4{
     font-size: 42px;
     color: white;
+    -webkit-text-stroke-color: #744500;
+    -webkit-text-stroke-width: 1px;
     display: inline-block;
     font-weight: 800;
     font-family: sans-serif;

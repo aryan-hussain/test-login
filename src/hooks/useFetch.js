@@ -11,7 +11,7 @@ const useFetch = (url) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("http://10.8.10.40:5000/category/getCategory");
+        const res = await axios.get(url);
         console.log(res.data)
         setData(res.data);
       } catch (err) {

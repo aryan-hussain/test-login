@@ -54,6 +54,7 @@
 
 .home-container {
   padding: 2rem 4rem;
+  min-height: 100vh;
 
   background: -webkit-linear-gradient(
     to right,
@@ -139,6 +140,7 @@
 /* Cart */
 .cart-container {
   padding: 2rem 4rem;
+  min-height: 100vh;
   background: url("./assets/colorful-shopping-bags.jpg");
   background-size: 100% 100%;
   /* background-repeat: no-repeat; */

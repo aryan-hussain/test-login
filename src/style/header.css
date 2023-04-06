@@ -5,9 +5,13 @@
 
 #Header{
     background-color: #232227;
+    position: sticky;
+    top: 0;
+    z-index: 3;
 }
 .Header{
     height: 60px;
+   
 }
 .Header svg{
     color: white;
@@ -47,6 +51,7 @@
     align-items: center;
     height: 25px;
     background-color: aliceblue;
+    color: black;
     position: absolute;
     top: -14px;
     right: -14px;

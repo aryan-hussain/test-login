@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { addToCart } from "../slices/cartSlice";
@@ -7,8 +7,10 @@ import axios from "axios";
 import { setProducts, fetchProducts } from "../slices/itemsApi";
 import useFetch from "../hooks/useFetch";
 import "../style/product.css";
+import { setId } from "../slices/idSlide";
 
 const Product = () => {
+  
   // const { items: products, status } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const history = useNavigate();
@@ -20,8 +22,30 @@ const Product = () => {
     `http://10.8.10.40:5000/category/getCategory`
   );
 
-  console.log(data);
+  // const [id, setId] = useState("");
+  const [value, setValue] = useState(null);
 
+  function handlevb(item){
+
+    let category_id=item._id;
+    console.log(category_id)
+    dispatch(setId(category_id))
+    history("/home/products/subCategory");
+    // const response = await fetch("http://10.8.10.40:5000/subCategory/getSubCategory", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     category_id: item._id,
+       
+    //   }),
+    // });
+    // const jsonData = await response.json();
+    // setValue(jsonData);
+  }
+
+  
   // const products = useSelector((state) => state.products);
   // console.log(products);
 
@@ -43,7 +67,7 @@ const Product = () => {
                       <div className="pi-l">
                         <div className="pi-l-inner">
                           <h4>{item.title}</h4>
-                          <button>VIEW ALL</button>
+                          <button onClick={()=>handlevb(item)}>VIEW ALL</button>
                         </div>
                         <div className="pi-l-img">
                           <img src={item.image} alt="" />

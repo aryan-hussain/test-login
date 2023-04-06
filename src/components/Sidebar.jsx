@@ -3,23 +3,38 @@ import '../style/sidebar.css';
 import { Link, Outlet } from 'react-router-dom';
 
 const Sidebar = () => {
+
+  //  function toggleClicked(clickedButton) {
+  //   let buttons = document.querySelectorAll(".nav-item.active");
+  //   buttons.forEach(function(button) {
+  //     if (button !== clickedButton) {
+  //       button.remove("clicked");
+  //       button.style.backgroundColor = "blue";
+  //     }
+  //   });
+  //   clickedButton.classList.toggle("clicked");
+  //   if (clickedButton.contains("clicked")) {
+  //     clickedButton.style.backgroundColor = "red";
+  //   } else {
+  //     clickedButton.style.backgroundColor = "blue";
+  //   }
+  // }
+
   return (
     <>
       <nav id='sidebar'>
         <div className="container">
             <div className="sidebar">
-                <div className="logo d-f j-c-c a-i-c">
-                    <img src="https://www.bootstrapdash.com/demo/skydash/template/images/logo-light.svg" alt="img not found" />
-                </div>
+                
                 <ul className="nav d-f flex-d-c">
                     <li className="nav-item active">
-                        <Link to={"/home"} className="nav-link">Home</Link>
+                        <Link to={"/home/products"}  className="nav-link">Category</Link>
                     </li>
                     <li className="nav-item active">
                        <Link to={"/admin/login"} className="nav-link"> Dashboard</Link> 
                     </li>
                     <li className="nav-item active">
-                        <Link to={"/home/products"} className="nav-link">Products</Link>
+                        <Link to={"/home"} className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item active">
                         <Link className="nav-link" to={"/login"}>Log out</Link>

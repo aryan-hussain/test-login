@@ -1,0 +1,12 @@
+#subCategory{
+    background: linear-gradient(
+        to right,
+        #232227,
+        #bdc3c7,
+        #232227
+      );
+}
+
+#subCategory.subCategory h2{
+    color: white;
+}

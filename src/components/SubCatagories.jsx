@@ -4,6 +4,7 @@ import useFetch from "../hooks/useFetch";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { setId } from "../slices/idSlide";
+import "../style/subcat.css"
 
 const SubCatagories = () => {
 
@@ -38,7 +39,7 @@ const SubCatagories = () => {
                   fontSize: "27px",
                   fontWeight: "800",
                   padding: "15px 0",
-                  color: "#313131",
+                  color: "white",
                   fontFamily: "sans-serif",
                 }}
               >

@@ -40,7 +40,7 @@ const SubSub = () => {
                     <img src={item.image} alt={item.image} />
                   </div>
                   <div className="ssbrand">
-                    <h6>Brand: {item.brand}</h6>
+                    <h6>{item.brand}</h6>
                   </div>
                 </div>
                 <div className="ssDesc">

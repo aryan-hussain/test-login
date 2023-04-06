@@ -1,5 +1,15 @@
+#pproduct{
+    background: linear-gradient(
+        to right,
+        #232227,
+        #bdc3c7,
+        #232227
+      );
+}
+
 #pproduct .pproduct{
     width: 100%;
+    
 }
 
 .ShopcatItem{
@@ -18,7 +28,7 @@
     font-size: 27px;
     font-weight: 800;
     padding: 15px 0;
-    color: #313131;
+    color: #ffffff;
     font-family: sans-serif;
 }
 

@@ -50,7 +50,7 @@ const SignupForm = () => {
       username: values.username,
       email: values.email,
       password: values.password,
-      phone: values.phoneNumber,
+      phonenumber: values.phoneNumber,
       confirmPassword: values.confirmPassword,
       // address: values.address,
     };
@@ -65,7 +65,7 @@ const SignupForm = () => {
       toast.success("Login Successfully", {
         position: "bottom-left",
       });
-      history("/home");
+      history("/login");
     } catch (error) {
       console.error(error);
       toast.error(`${error}`, { position: "bottom-left" });

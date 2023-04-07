@@ -34,9 +34,15 @@ const LoginForm = (props) => {
     };
     console.log(userData);
     try {
-      const response = await axios.post("http://10.8.10.149:3000/user/login", userData);
-      console.log(response.data.data[0]);
+      const response = await axios.post("http://10.8.10.40:5000/user/login", userData);
+      console.log(response.data);
       // setuserId(response.data.data[0])
+      
+      const token  =  response.data.token;
+ 
+       //set JWT token to local
+       localStorage.setItem("token", token);
+
       resetForm();
       toast.success("Login Successfully", {
         position: "bottom-left",
@@ -61,11 +67,11 @@ const LoginForm = (props) => {
               src="https://www.bootstrapdash.com/demo/skydash/template/images/logo.svg"
               alt=""
             />
-            <h1>Sign Up</h1>
-            <p>
+            <h1>Log in</h1>
+            {/* <p>
               New here? Join us today! <br />
               It takes only few steps
-            </p>
+            </p> */}
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}

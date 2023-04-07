@@ -5,17 +5,49 @@ import { useNavigate } from "react-router";
 import { setId } from "../slices/idSlide";
 import "../style/SubSub.css";
 import { addToCart } from "../slices/cartSlice";
+import axios from "axios";
 
 const SubSub = () => {
   const id = useSelector((state) => state.id);
   console.log(id);
+  
+  
+  
 
   const dispatch = useDispatch();
   const history = useNavigate();
 
+  const token = localStorage.getItem("token")
+  function addToCart2(product) {
+    console.log(token)
+    axios
+      .post("http://10.8.10.40:5000/addcart/addCart",  {
+        
+        product_id: product._id,
+        name: product.name,
+        price: product.price,
+        image: product.image,
+        // token:token
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+        
+      });
+  }
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+    
     console.log(product);
+    addToCart2(product);
     history("/home/cart");
   };
 

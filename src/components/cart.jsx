@@ -23,12 +23,18 @@ const Cart = () => {
 
     console.log(product)
 
+    const token = localStorage.getItem("token");
+
     axios
-      .post("http://10.8.10.149:3000/cart/addItem", {
-        productId: product.id,
+      .post("http://10.8.10.40:5000/addcart/addCart", {
+        productId: product._id,
         // name: product.name,
         // price: product.price,
         // add any other product data you need to send
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then((response) => {
         console.log(response.data);

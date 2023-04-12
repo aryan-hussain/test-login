@@ -8,13 +8,18 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useState } from "react";
+import { useSigninUserMutation } from "../slices/authApi.ts";
+import { useDispatch } from "react-redux";
+import { setUser } from "../slices/authStoreSlice.ts";
 
-const LoginForm = (props) => {
-
-  // const [userId, setuserId] = useState("")
-
+const LoginForm = () => {
+  const dispatch = useDispatch();
   const history = useNavigate();
 
+  const [signinUser, { data, isLoading, error, isError, isSuccess }] = useSigninUserMutation();
+
+  console.log(data);
+  
   const initialValues = {
     email: "",
     password: "",
@@ -27,36 +32,32 @@ const LoginForm = (props) => {
       .min(6, "Password must be at least 6 characters"),
   });
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  if (isError) {
+    toast({
+      title: error.data.message,
+      status: "error",
+      duration: 5000,
+    });
+    if (error.data.message === "User not Verified") {
+      history("/send-verify-mail", {
+        state: {},
+      });
+    }
+  }
+  if (isSuccess) {
+    dispatch(setUser({ token: data.token, name: data.name }));
+    history("/home");
+    localStorage.setItem("token", data.data.token);
+  }
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const userData = {
       email: values.email,
       password: values.password,
     };
+    signinUser(userData);
     console.log(userData);
-    try {
-      const response = await axios.post("http://10.8.10.40:5000/user/login", userData);
-      console.log(response.data);
-      // setuserId(response.data.data[0])
-      
-      const token  =  response.data.token;
- 
-       //set JWT token to local
-       localStorage.setItem("token", token);
-
-      resetForm();
-      toast.success("Login Successfully", {
-        position: "bottom-left",
-      });
-      history("/home");
-    } 
-    catch (error) {
-      console.error(error);
-      toast.error(`${error}`, { position: "bottom-left" });
-    }
-
   };
-
-
 
   return (
     <section id="signin">
@@ -102,9 +103,7 @@ const LoginForm = (props) => {
             </Formik>
             <p>
               Not have account? Create new account
-              <Link to="/signup">
-                Click Me
-              </Link>
+              <Link to="/signup">Click Me</Link>
             </p>
           </div>
         </div>
@@ -123,14 +122,10 @@ const Container = styled.div`
   margin-top: 50px;
 `;
 
-
-
 const ErrorMessagex = styled(ErrorMessage)`
   color: red;
   font-size: 14px;
   margin-top: 5px;
 `;
-
-
 
 export default LoginForm;

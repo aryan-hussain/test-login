@@ -9,7 +9,7 @@ const Home = () => {
   const history = useNavigate();
 
   const { data, error, isLoading } = useGetAllProductsQuery();
-  console.log("Api", isLoading);
+  console.log("data", data);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -44,7 +44,7 @@ const Home = () => {
           <div className="products">
               {data &&
                 data?.map((product) => (
-                  <div key={product.id} className="product">
+                  <div key={product._id} className="product">
                     <h3>{product.name}</h3>
                     <img src={product.image} alt={product.name} />
                     <div className="details">

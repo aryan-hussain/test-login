@@ -7,11 +7,14 @@ import "../style/signup.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useSignupUserMutation } from "../slices/authApi.ts";
 
 const SignupForm = () => {
   const history = useNavigate();
+
+  const [signupUser, { data, isLoading,error, isError, isSuccess }] = useSignupUserMutation();
+
   const initialValues = {
-    // name: "",
     username: "",
     email: "",
     password: "",
@@ -19,6 +22,8 @@ const SignupForm = () => {
     phoneNumber: "",
     address: "",
   };
+
+  
 
   const validationSchema = Yup.object().shape({
     // name: Yup.string().required("Name is required"),
@@ -44,32 +49,55 @@ const SignupForm = () => {
     address: Yup.string().required("* Address is required"),
   });
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+  if (isError) {
+    toast({
+      title: (error).data.message,
+      status: "error",
+      duration: 5000,
+    });
+    if ((error ).data.message === "User not Verified") {
+      history("/send-verify-mail", {
+        state: {  },
+      });
+    }
+  }
+  if (isSuccess) {
+    history("/login");
+    // localStorage.setItem("token", data.data.token);
+  }
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const userData = {
       // name: values.name,
       username: values.username,
       email: values.email,
       password: values.password,
-      phonenumber: values.phoneNumber,
+      phone: values.phoneNumber,
       confirmPassword: values.confirmPassword,
       // address: values.address,
     };
+
+    signupUser(userData);
+
     console.log(userData);
-    try {
-      const response = await axios.post(
-        "http://10.8.10.40:5000/user/signup",
-        userData
-      );
-      console.log(response.data);
-      resetForm();
-      toast.success("Login Successfully", {
-        position: "bottom-left",
-      });
-      history("/login");
-    } catch (error) {
-      console.error(error);
-      toast.error(`${error}`, { position: "bottom-left" });
-    }
+
+    
+  
+    // try {
+    //   const response = await axios.post(
+    //     "http://10.8.10.40:5000/user/signup",
+    //     userData
+    //   );
+    //   console.log(response.data);
+    //   resetForm();
+    //   toast.success("Login Successfully", {
+    //     position: "bottom-left",
+    //   });
+    //   history("/login");
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error(`${error}`, { position: "bottom-left" });
+    // }
   };
 
   return (
@@ -163,8 +191,8 @@ const SignupForm = () => {
             <p>
               Already account?{" "}
               <Link to="/login">
-                <a href="">Login</a>
-              </Link>{" "}
+                Login
+              </Link>
             </p>
           </div>
         </div>

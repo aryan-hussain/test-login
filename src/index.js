@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
@@ -34,6 +34,7 @@ import Home from "./components/Home";
 import SubSub from "./components/SubSub";
 import SignUp2 from "./components/SignUp2";
 import { authApi } from "./slices/authApi.ts";
+import { useLocation } from "react-router-dom";
 
 const store = configureStore({
   reducer: {
@@ -53,8 +54,15 @@ const store = configureStore({
     ),
 });
 
-// store.dispatch(productsFetch());
 store.dispatch(getTotals());
+const currentRoute = window.location.pathname;
+
+// const [currentRoute, setCurrentRoute] = useState("");
+//   const location = useLocation();
+
+//   useEffect(() => {
+//     setCurrentRoute(location.pathname);
+//   }, [location]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -62,22 +70,28 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <ToastContainer />
+        {/* <Header path="/login" hidden={false} /> */}
+
         <Header />
 
         <div className="Divider d-f">
-          <Sidebar />
+          {/* <Sidebar path="/login" hidden={false} /> */}
+          {currentRoute === "/login" || currentRoute === "/signup" ? null : (
+            <Sidebar />
+          )}
 
           <div style={{ width: "100%" }}>
             <Routes>
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route path="/signup2" element={<SignUp2 />} />
+              <Route path="/signup" element={<SignupForm />} />
               <Route path="/login" element={<Login />} />
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />} />
-                <Route path="*" element={<div>not found</div>} />
+                {/* <Route path="*" element={<div> <h1>Page not found ;( </h1> </div>} /> */}
                 <Route path="/" element={<Login />} />
-                <Route path="/signup" element={<SignupForm />} />
+
                 <Route
                   path="/home/products/SubCategory"
                   element={<SubCatagories />}
@@ -90,7 +104,24 @@ root.render(
                 <Route path="/home/products" element={<Product />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
               </Route>
-
+              <Route
+                path="*"
+                element={
+                  <div>
+                    {" "}
+                    <h1
+                      style={{
+                        fontSize: "20px",
+                        fontWeight: "800",
+                        textAlign: "center",
+                        marginTop: "30px",
+                      }}
+                    >
+                      Page not found ;({" "}
+                    </h1>{" "}
+                  </div>
+                }
+              />
               <Route element={<PageLayout />}></Route>
             </Routes>
           </div>

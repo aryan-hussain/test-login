@@ -50,20 +50,16 @@ const SignupForm = () => {
   });
 
   if (isError) {
-    toast({
-      title: (error).data.message,
-      status: "error",
-      duration: 5000,
+    toast.error("OOPS", {
+      position: "bottom-left",
     });
-    if ((error ).data.message === "User not Verified") {
-      history("/send-verify-mail", {
-        state: {  },
-      });
-    }
+    console.log(error);  
   }
   if (isSuccess) {
     history("/login");
-    // localStorage.setItem("token", data.data.token);
+    toast.success("Succesfully SignUp", {
+      position: "bottom-left",
+    });
   }
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
@@ -72,32 +68,15 @@ const SignupForm = () => {
       username: values.username,
       email: values.email,
       password: values.password,
-      phone: values.phoneNumber,
+      phoneNumber: values.phoneNumber,
       confirmPassword: values.confirmPassword,
-      // address: values.address,
+      address: values.address,
     };
 
     signupUser(userData);
 
     console.log(userData);
 
-    
-  
-    // try {
-    //   const response = await axios.post(
-    //     "http://10.8.10.40:5000/user/signup",
-    //     userData
-    //   );
-    //   console.log(response.data);
-    //   resetForm();
-    //   toast.success("Login Successfully", {
-    //     position: "bottom-left",
-    //   });
-    //   history("/login");
-    // } catch (error) {
-    //   console.error(error);
-    //   toast.error(`${error}`, { position: "bottom-left" });
-    // }
   };
 
   return (

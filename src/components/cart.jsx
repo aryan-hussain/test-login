@@ -20,60 +20,52 @@ const Cart = () => {
   }, [cart, dispatch]);
 
   function plus(product) {
-
-    console.log(product)
+    console.log(product);
 
     const token = localStorage.getItem("token");
 
     axios
-      .post("http://10.8.10.40:5000/addcart/addCart", {
-        productId: product._id,
-        // name: product.name,
-        // price: product.price,
-        // add any other product data you need to send
-      },{
-        headers: {
-          Authorization: `Bearer ${token}`
+      .post(
+        "http://10.8.10.40:5000/addcart/addCart",
+        {
+          productId: product._id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
+      )
       .then((response) => {
         console.log(response.data);
-        // handle success, e.g. show a success message
       })
       .catch((error) => {
         console.log(error);
-        // handle error, e.g. show an error message
       });
   }
 
   function minus(product) {
+    console.log(product);
 
-    console.log(product)
-    
     axios
       .post("http://10.8.10.149:3000/cart/removeOne", {
         productId: product.id,
-        // name: product.name,
-        // price: product.price,
-        // add any other product data you need to send
       })
       .then((response) => {
         console.log(response.data);
-        // handle success, e.g. show a success message
       })
       .catch((error) => {
         console.log(error);
-        // handle error, e.g. show an error message
       });
   }
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    plus(product)
+    plus(product);
   };
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
-    minus(product)
+    minus(product);
   };
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
@@ -137,7 +129,7 @@ const Cart = () => {
                     <button onClick={() => handleAddToCart(cartItem)}>+</button>
                   </div>
                   <div className="cart-product-total-price">
-                  ₹{cartItem.price * cartItem.cartQuantity}
+                    ₹{cartItem.price * cartItem.cartQuantity}
                   </div>
                 </div>
               ))}

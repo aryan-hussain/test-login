@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect,useState } from "react";
 import "../style/header.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-const Header = () => {
+
+const Header = ({hidden}) => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
+
+  const [currentRoute, setCurrentRoute] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    setCurrentRoute(location.pathname);
+  }, [location]);
+
+
   return (
     <>
-      <header id="Header">
+ {currentRoute === "/login" || currentRoute === "/signup" || currentRoute === "/admin/login"? null : (
+        <header id="Header">
         <div className="container">
           <div className="Header d-f j-c-sb a-i-c">
             <div className="h-l d-f a-i-c">
@@ -92,6 +103,9 @@ const Header = () => {
           </div>
         </div>
       </header>
+      )}
+
+      
     </>
   );
 };

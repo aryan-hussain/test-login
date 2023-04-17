@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -15,6 +15,8 @@ import { setUser } from "../slices/authStoreSlice.ts";
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
+
+  useEffect(()=>{},[history])
 
   const [signinUser, { data, isLoading, error, isError, isSuccess }] = useSigninUserMutation();
 
@@ -47,7 +49,10 @@ const LoginForm = () => {
   if (isSuccess) {
     dispatch(setUser({ token: data.token, name: data.name }));
     history("/home");
-    localStorage.setItem("token", data.data.token);
+    localStorage.setItem("token", data.token);
+    toast.success("Succesfully Login", {
+      position: "bottom-left",
+    });
   }
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {

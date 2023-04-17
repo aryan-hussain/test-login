@@ -8,10 +8,15 @@ const useFetch = (url) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
     const fetchData = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(url);
+        const res = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        });
         console.log(res.data)
         setData(res.data);
       } catch (err) {

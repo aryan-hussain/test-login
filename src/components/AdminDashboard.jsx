@@ -29,8 +29,8 @@ const AddProductForm = () => {
 
   return (
     <>
-    <Header />
-    <form style={{margintop:"30px"}} onSubmit={handleSubmit} className="add-product-form">
+    <div className="admindashboard">
+    <form style={{margintop:"45px"}} onSubmit={handleSubmit} className="add-product-form">
       <label className="form-label">
         Name:
         <input type="text" value={name} onChange={e => setName(e.target.value)} className="form-input" />
@@ -50,9 +50,10 @@ const AddProductForm = () => {
       <label className="form-label">
         Image:
         <input type="file" onChange={e => setImage(e.target.files[0])} className="form-input" />
-      </label>response
+      </label>
       <button type="submit" className="form-button">Add Product</button>
     </form>
+    </div>
     </>
   );
 };

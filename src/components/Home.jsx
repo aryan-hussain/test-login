@@ -3,10 +3,16 @@ import { useNavigate } from "react-router";
 import { addToCart } from "../slices/cartSlice";
 import { useGetAllProductsQuery } from "../slices/productsApi";
 import axios from "axios";
+import { useEffect } from "react";
+
 
 const Home = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
+  
+  useEffect(()=>{
+    console.log("home rendered")
+  },[])
 
   const { data, error, isLoading } = useGetAllProductsQuery();
   console.log("data", data);

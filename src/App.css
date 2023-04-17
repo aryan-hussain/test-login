@@ -148,6 +148,11 @@
 .cart-container h2 {
   font-weight: 400;
 
+  font-family: monospace;
+  font-size: 34px;
+  font-weight: 800;
+  color: #353535;
+
   text-align: center;
 }
 .cart-container .titles {

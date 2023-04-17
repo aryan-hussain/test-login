@@ -17,6 +17,7 @@ const SubCatagories = () => {
   const { data, loading, error } = useFetch(
     `http://10.8.10.40:5000/subCategory/getSubCategory?category_id=${id}`
   );
+  
 
   function handlevb(item){
 

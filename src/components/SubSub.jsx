@@ -6,18 +6,19 @@ import { setId } from "../slices/idSlide";
 import "../style/SubSub.css";
 import { addToCart } from "../slices/cartSlice";
 import axios from "axios";
+import { useAddToCartMutation } from "../slices/postAddToCart.ts";
 
 const SubSub = () => {
   const id = useSelector((state) => state.id);
   console.log(id);
-  
-  
-  
+
+  const [addToCartMutation] = useAddToCartMutation();
 
   const dispatch = useDispatch();
   const history = useNavigate();
 
   const token = localStorage.getItem("token")
+
   function addToCart2(product) {
     console.log(token)
     axios
@@ -27,7 +28,7 @@ const SubSub = () => {
         name: product.name,
         price: product.price,
         image: product.image,
-        // token:token
+        
       },{
         headers: {
           Authorization: `Bearer ${token}`
@@ -43,11 +44,18 @@ const SubSub = () => {
       });
   }
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
+    
+    console.log("subsub 49",product);
+    
+    try {
+      await addToCartMutation({ product });
+    } catch (error) {
+      console.log(error);
+    }
     dispatch(addToCart(product));
     
-    console.log(product);
-    addToCart2(product);
+    // addToCart2(product);
     history("/home/cart");
   };
 

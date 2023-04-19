@@ -57,13 +57,6 @@ const store = configureStore({
 store.dispatch(getTotals());
 const currentRoute = window.location.pathname;
 
-// const [currentRoute, setCurrentRoute] = useState("");
-//   const location = useLocation();
-
-//   useEffect(() => {
-//     setCurrentRoute(location.pathname);
-//   }, [location]);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -117,8 +110,8 @@ root.render(
                         marginTop: "30px",
                       }}
                     >
-                      Page not found ;({" "}
-                    </h1>{" "}
+                      Page not found ;(
+                    </h1>
                   </div>
                 }
               />

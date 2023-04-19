@@ -22,15 +22,7 @@ export const authApi = createApi({
         };
       },
     }),
-    sendMailForVerification: builder.mutation({
-      query: (body: { email: string }) => {
-        return {
-          url: "/user/send-verification-mail",
-          method: "post",
-          body,
-        };
-      },
-    }),
+    
     verifyUser: builder.mutation({
       query: (body: { token: string }) => {
         console.log(body.token);
@@ -67,7 +59,6 @@ export const authApi = createApi({
 export const {
   useSigninUserMutation,
   useSignupUserMutation,
-  useSendMailForVerificationMutation,
   useVerifyUserMutation,
   useSendMailForgotPasswordMutation,
   useResetPasswordMutation,

@@ -1,5 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
+
+const token = localStorage.getItem("token");
+
+// useEffect(()=>{
+//   if (token) {
+//     fetch("http://10.8.10.40:5000/addcart/fetchcart", {
+//       headers: {
+//         Authorization: "Bearer " + token,
+//         "Content-Type": "application/json",
+//       },
+//     })
+//       .then((response) => response.json())
+//       .then((data) => {
+//         console.log(data);
+//         // const initialState = {
+//         //   cartItems: data,
+//         // }
+//       });
+//   }
+  
+// },[])
 
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
@@ -13,10 +35,20 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    setCartItems(state, action) {
+      state.cartItems = action.payload;
+    },
     addToCart(state, action) {
+      console.log("carSlice 42",action.payload._id);
+      // console.log("carSlice 42",action)
       const existingIndex = state.cartItems.findIndex(
-        (item) => item._id === action.payload._id
+        (item) => {
+          console.log("item_id",item._id);
+          return item._id == action.payload._id
+        }
       );
+
+      console.log(existingIndex);
 
       if (existingIndex >= 0) {
         state.cartItems[existingIndex] = {
@@ -105,6 +137,36 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, decreaseCart, removeFromCart, getTotals, clearCart } = cartSlice.actions;
+export const { addToCart , decreaseCart, removeFromCart, getTotals, clearCart } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;
+
+export const fetchCartItems = () => async (dispatch) => {
+  try {
+    const response = await fetch("http://10.8.10.40:5000/addcart/fetchcart", {
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-Type": "application/json",
+      },
+    });
+
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(setCartItems(data.products));
+      console.log(data.products);
+    } else {
+      console.log("Unable to fetch cart items");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const setCartItems = (items) => {
+  return {
+    type: "cart/setCartItems",
+    payload: items,
+  };
+};

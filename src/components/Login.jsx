@@ -35,16 +35,10 @@ const LoginForm = () => {
   });
 
   if (isError) {
-    toast({
-      title: error.data.message,
-      status: "error",
-      duration: 5000,
+    toast.error(`OOPS: ${error.error}`, {
+      position: "bottom-left",
     });
-    if (error.data.message === "User not Verified") {
-      history("/send-verify-mail", {
-        state: {},
-      });
-    }
+    console.log(error);  
   }
   if (isSuccess) {
     dispatch(setUser({ token: data.token, name: data.name }));

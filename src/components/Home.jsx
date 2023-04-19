@@ -15,7 +15,7 @@ const Home = () => {
   },[])
 
   const { data, error, isLoading } = useGetAllProductsQuery();
-  console.log("data", data);
+  // console.log("data", data);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));

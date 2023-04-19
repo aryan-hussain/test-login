@@ -37,6 +37,7 @@ const SubCatagories = () => {
             <div className="heading">
               <h2
                 style={{
+
                   fontSize: "27px",
                   fontWeight: "800",
                   padding: "15px 0",

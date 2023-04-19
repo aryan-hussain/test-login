@@ -50,7 +50,7 @@ const SignupForm = () => {
   });
 
   if (isError) {
-    toast.error("OOPS", {
+    toast.error(`OOPS: ${error.data.result}`, {
       position: "bottom-left",
     });
     console.log(error);  

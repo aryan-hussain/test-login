@@ -7,17 +7,29 @@ import {
   getTotals,
   removeFromCart,
 } from "../slices/cartSlice";
+import { fetchCartItems } from "../slices/cartSlice";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useAddToCartMutation } from "../slices/postAddToCart.ts";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
+  console.log(cart)
   const dispatch = useDispatch();
+  const [addToCartMutation] = useAddToCartMutation();
 
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      dispatch(fetchCartItems());
+    }
+  }, []);
 
   function plus(product) {
     console.log(product);
@@ -59,10 +71,17 @@ const Cart = () => {
       });
   }
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = async (product) => {
     dispatch(addToCart(product));
-    plus(product);
+    
+    try {
+      await addToCartMutation({ product });
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
     minus(product);

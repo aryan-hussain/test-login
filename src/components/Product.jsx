@@ -11,45 +11,29 @@ import { setId } from "../slices/idSlide";
 
 const Product = () => {
   
-  // const { items: products, status } = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  const history = useNavigate();
 
-  // const { data, error, isLoading } = useGetAllCatagoryQuery();
-  // console.log("Api", isLoading);
+
+
+
+
+
+
+
+  const history = useNavigate();
 
   const { data, loading, error } = useFetch(
     `http://10.8.10.40:5000/category/getCategory`
   );
 
-  // const [id, setId] = useState("");
   const [value, setValue] = useState(null);
 
   function handlevb(item){
-
     let category_id=item._id;
     console.log(category_id)
     dispatch(setId(category_id))
     history("/home/products/subCategory");
-    // const response = await fetch("http://10.8.10.40:5000/subCategory/getSubCategory", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     category_id: item._id,
-       
-    //   }),
-    // });
-    // const jsonData = await response.json();
-    // setValue(jsonData);
   }
-
-  
-  // const products = useSelector((state) => state.products);
-  // console.log(products);
-
-  // dispatch(setProducts(fetchProducts()));
 
   return (
     <>

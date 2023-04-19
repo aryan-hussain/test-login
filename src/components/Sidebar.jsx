@@ -10,7 +10,7 @@ const Sidebar = ({ hidden }) => {
     setCurrentRoute(location.pathname);
   }, [location]);
 
-  return hidden ? null : (
+  return (
     <>
       {currentRoute === "/login" || currentRoute === "/signup" || currentRoute === "/admin/login" ? null : (
         <nav id="sidebar">
@@ -41,7 +41,10 @@ const Sidebar = ({ hidden }) => {
                 <li className="nav-item active">
                   <Link
                     className="nav-link"
-                    onClick={() => localStorage.removeItem("token")}
+                    onClick={() => {
+                      localStorage.removeItem("token")
+                      localStorage.removeItem("cartItems")
+                    }}
                     to={"/login"}
                   >
                     Log out

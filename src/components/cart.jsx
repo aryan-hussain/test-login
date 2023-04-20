@@ -1,5 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { postCartData } from '../slices/checkOutSlice.js';
+// import { useNavigate } from "@reach/router";
+
+
 import {
   addToCart,
   clearCart,
@@ -7,52 +11,43 @@ import {
   getTotals,
   removeFromCart,
 } from "../slices/cartSlice";
-import { fetchCartItems } from "../slices/cartSlice";
 
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import axios from "axios";
-import { useAddToCartMutation } from "../slices/postAddToCart.ts";
+import { toast } from "react-toastify";
+
+
+
 
 const Cart = () => {
+  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
-  console.log(cart)
+  console.log(cart);
   const dispatch = useDispatch();
-  const [addToCartMutation] = useAddToCartMutation();
 
   useEffect(() => {
     dispatch(getTotals());
   }, [cart, dispatch]);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      dispatch(fetchCartItems());
-    }
-  }, []);
-
-  function plus(product) {
-    console.log(product);
-
-    const token = localStorage.getItem("token");
-
-    axios
-      .post(
-        "http://10.8.10.40:5000/addcart/addCart",
-        {
-          productId: product._id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+  const checkout = (cartItems)=>{
+    console.log("checkout",cartItems);
+    dispatch(postCartData(cartItems))
+      .then((data) => {
+        console.log(`data from backend`,data)
+        if(data.payload.status === 201){
+          // toast.success('Payment done Successfully',{
+          //   position: "bottom-left",
+          //   autoClose: 1500
+          // });
+          navigate("/home/cart/thankyou");
+          dispatch(clearCart());
         }
-      )
-      .then((response) => {
-        console.log(response.data);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch(error => {
+        toast.success(`Server down 😢`,{
+          position: "bottom-left",
+          autoClose: 1500
+        });
       });
   }
 
@@ -71,17 +66,10 @@ const Cart = () => {
       });
   }
 
-  const handleAddToCart = async (product) => {
+  const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    
-    try {
-      await addToCartMutation({ product });
-    } catch (error) {
-      console.log(error);
-    }
   };
 
-  
   const handleDecreaseCart = (product) => {
     dispatch(decreaseCart(product));
     minus(product);
@@ -163,7 +151,7 @@ const Cart = () => {
                 <span className="amount">₹{cart.cartTotalAmount}</span>
               </div>
               <p>Taxes and shipping calculated at checkout</p>
-              <button>Check out</button>
+              <button onClick={()=>checkout(cart.cartItems)} >Check out</button>
               <div className="continue-shopping">
                 <Link to="/home/products">
                   <svg

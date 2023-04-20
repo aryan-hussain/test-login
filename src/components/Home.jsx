@@ -4,15 +4,17 @@ import { addToCart } from "../slices/cartSlice";
 import { useGetAllProductsQuery } from "../slices/productsApi";
 import axios from "axios";
 import { useEffect } from "react";
-
+import { connect } from "react-redux";
 
 const Home = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
-  
-  useEffect(()=>{
-    console.log("home rendered")
-  },[])
+
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+
+  }, [token]);
 
   const { data, error, isLoading } = useGetAllProductsQuery();
   // console.log("data", data);
@@ -20,7 +22,7 @@ const Home = () => {
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
     console.log(product);
-    addToCart2(product);
+    // addToCart2(product);
     history("/home/cart");
   };
 
@@ -34,11 +36,9 @@ const Home = () => {
       })
       .then((response) => {
         console.log(response.data);
-        
       })
       .catch((error) => {
         console.log(error);
-        
       });
   }
 
@@ -48,28 +48,28 @@ const Home = () => {
         <>
           <h2>Today's Deals</h2>
           <div className="products">
-              {data &&
-                data?.map((product) => (
-                  <div key={product._id} className="product">
-                    <h3>{product.name}</h3>
-                    <img src={product.image} alt={product.name} />
-                    <div className="details">
-                      <span
-                        style={{
-                          overflow: "hidden",
-                          height: "88px",
-                          fontSize: "12px",
-                        }}
-                      >
-                        {product.desc}
-                      </span>
-                      <span className="price">${product.price}</span>
-                    </div>
-                    <button onClick={() => handleAddToCart(product)}>
-                      Add To Cart
-                    </button>
+            {data &&
+              data?.map((product) => (
+                <div key={product._id} className="product">
+                  <h3>{product.name}</h3>
+                  <img src={product.image} alt={product.name} />
+                  <div className="details">
+                    <span
+                      style={{
+                        overflow: "hidden",
+                        height: "88px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      {product.desc}
+                    </span>
+                    <span className="price">₹{product.price}</span>
                   </div>
-                ))}
+                  <button onClick={() => handleAddToCart(product)}>
+                    Add To Cart
+                  </button>
+                </div>
+              ))}
           </div>
         </>
       ) : "pending" ? (

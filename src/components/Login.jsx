@@ -1,27 +1,29 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import styled from "styled-components";
 import "../style/login.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useState } from "react";
-import { useSigninUserMutation } from "../slices/authApi.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../slices/authStoreSlice.ts";
+import { login } from "../slices/authApi";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const history = useNavigate();
 
-  useEffect(()=>{},[history])
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (token) {
+      history("/home");
+    }
+  }, [history, token]);
 
-  const [signinUser, { data, isLoading, error, isError, isSuccess }] = useSigninUserMutation();
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
 
-  console.log(data);
-  
   const initialValues = {
     email: "",
     password: "",
@@ -34,28 +36,19 @@ const LoginForm = () => {
       .min(6, "Password must be at least 6 characters"),
   });
 
-  if (isError) {
-    toast.error(`OOPS: ${error.error}`, {
-      position: "bottom-left",
-    });
-    console.log(error);  
-  }
-  if (isSuccess) {
-    dispatch(setUser({ token: data.token, name: data.name }));
-    history("/home");
-    localStorage.setItem("token", data.token);
-    toast.success("Succesfully Login", {
-      position: "bottom-left",
-    });
-  }
-
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const userData = {
       email: values.email,
       password: values.password,
     };
-    signinUser(userData);
     console.log(userData);
+    dispatch(login(userData))
+      .then(() => {
+        setSubmitting(false);
+      })
+      .catch(() => {
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -68,10 +61,6 @@ const LoginForm = () => {
               alt=""
             />
             <h1>Log in</h1>
-            {/* <p>
-              New here? Join us today! <br />
-              It takes only few steps
-            </p> */}
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}

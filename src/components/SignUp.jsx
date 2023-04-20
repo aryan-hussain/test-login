@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -7,12 +7,24 @@ import "../style/signup.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useSignupUserMutation } from "../slices/authApi.ts";
+import { signup } from '../slices/authApi.js';
+import { useDispatch, useSelector } from "react-redux";
+
 
 const SignupForm = () => {
   const history = useNavigate();
 
-  const [signupUser, { data, isLoading,error, isError, isSuccess }] = useSignupUserMutation();
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.auth.loading);
+  const error = useSelector((state) => state.auth.error);
+  const status = useSelector((state) => state.auth.status);
+  const userInfo = useSelector((state)=> state.auth.user)
+
+  useEffect(() => {
+    if (status) {
+      history('/login')
+    }
+  }, [status])
 
   const initialValues = {
     username: "",
@@ -49,22 +61,8 @@ const SignupForm = () => {
     address: Yup.string().required("* Address is required"),
   });
 
-  if (isError) {
-    toast.error(`OOPS: ${error.data.result}`, {
-      position: "bottom-left",
-    });
-    console.log(error);  
-  }
-  if (isSuccess) {
-    history("/login");
-    toast.success("Succesfully SignUp", {
-      position: "bottom-left",
-    });
-  }
-
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     const userData = {
-      // name: values.name,
       username: values.username,
       email: values.email,
       password: values.password,
@@ -72,10 +70,8 @@ const SignupForm = () => {
       confirmPassword: values.confirmPassword,
       address: values.address,
     };
-
-    signupUser(userData);
-
     console.log(userData);
+    dispatch(signup(userData));
 
   };
 

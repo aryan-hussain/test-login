@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 const Header = ({hidden}) => {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
+  console.log(cartTotalQuantity)
+
 
   const [currentRoute, setCurrentRoute] = useState("");
   const location = useLocation();

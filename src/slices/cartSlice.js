@@ -1,27 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
-
-const token = localStorage.getItem("token");
-
-// useEffect(()=>{
-//   if (token) {
-//     fetch("http://10.8.10.40:5000/addcart/fetchcart", {
-//       headers: {
-//         Authorization: "Bearer " + token,
-//         "Content-Type": "application/json",
-//       },
-//     })
-//       .then((response) => response.json())
-//       .then((data) => {
-//         console.log(data);
-//         // const initialState = {
-//         //   cartItems: data,
-//         // }
-//       });
-//   }
-  
-// },[])
 
 const initialState = {
   cartItems: localStorage.getItem("cartItems")
@@ -35,20 +13,10 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCartItems(state, action) {
-      state.cartItems = action.payload;
-    },
     addToCart(state, action) {
-      console.log("carSlice 42",action.payload._id);
-      // console.log("carSlice 42",action)
-      const existingIndex = state.cartItems.findIndex(
-        (item) => {
-          console.log("item_id",item._id);
-          return item._id == action.payload._id
-        }
-      );
-
-      console.log(existingIndex);
+      const existingIndex = state.cartItems.findIndex((item) => {
+        return item._id === action.payload._id;
+      });
 
       if (existingIndex >= 0) {
         state.cartItems[existingIndex] = {
@@ -57,12 +25,14 @@ const cartSlice = createSlice({
         };
         toast.info("Increased product quantity", {
           position: "bottom-left",
+          autoClose: 500
         });
       } else {
         let tempProductItem = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProductItem);
         toast.success("Product added to cart", {
           position: "bottom-left",
+          autoClose: 500
         });
       }
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -77,6 +47,7 @@ const cartSlice = createSlice({
 
         toast.info("Decreased product quantity", {
           position: "bottom-left",
+          autoClose: 500
         });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.cartItems.filter(
@@ -87,6 +58,7 @@ const cartSlice = createSlice({
 
         toast.error("Product removed from cart", {
           position: "bottom-left",
+          autoClose: 500
         });
       }
 
@@ -103,6 +75,7 @@ const cartSlice = createSlice({
 
           toast.error("Product removed from cart", {
             position: "bottom-left",
+            autoClose: 500
           });
         }
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -132,41 +105,12 @@ const cartSlice = createSlice({
     clearCart(state, action) {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      toast.error("Cart cleared", { position: "bottom-left" });
+      toast.error("Cart cleared", { position: "bottom-left", autoClose:150 });
     },
   },
 });
 
-export const { addToCart , decreaseCart, removeFromCart, getTotals, clearCart } =
+export const { addToCart, decreaseCart, removeFromCart, getTotals, clearCart } =
   cartSlice.actions;
 
 export default cartSlice.reducer;
-
-export const fetchCartItems = () => async (dispatch) => {
-  try {
-    const response = await fetch("http://10.8.10.40:5000/addcart/fetchcart", {
-      headers: {
-        Authorization: "Bearer " + token,
-        "Content-Type": "application/json",
-      },
-    });
-
-
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(setCartItems(data.products));
-      console.log(data.products);
-    } else {
-      console.log("Unable to fetch cart items");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const setCartItems = (items) => {
-  return {
-    type: "cart/setCartItems",
-    payload: items,
-  };
-};

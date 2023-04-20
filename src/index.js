@@ -33,24 +33,24 @@ import SubCatagories from "./components/SubCatagories";
 import Home from "./components/Home";
 import SubSub from "./components/SubSub";
 import SignUp2 from "./components/SignUp2";
-import { authApi } from "./slices/authApi.ts";
+import authApi from "./slices/authApi";
 import { useLocation } from "react-router-dom";
+import ThankYou from "./components/ThankYou";
 
 const store = configureStore({
   reducer: {
     cart: cartReducer,
     id: idReducer,
     products: productsReducer,
-    auth: authReducer,
+    auth: authApi,
+
     [productsApi.reducerPath]: productsApi.reducer,
     [catagoryApi.reducerPath]: catagoryApi.reducer,
-    [authApi.reducerPath]: authApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       productsApi.middleware,
-      catagoryApi.middleware,
-      authApi.middleware
+      catagoryApi.middleware
     ),
 });
 
@@ -63,12 +63,10 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <ToastContainer />
-        {/* <Header path="/login" hidden={false} /> */}
 
         <Header />
 
         <div className="Divider d-f">
-          {/* <Sidebar path="/login" hidden={false} /> */}
           {currentRoute === "/login" || currentRoute === "/signup" ? null : (
             <Sidebar />
           )}
@@ -82,7 +80,7 @@ root.render(
 
               <Route element={<ProtectedRoute />}>
                 <Route path="/home" element={<Home />} />
-                {/* <Route path="*" element={<div> <h1>Page not found ;( </h1> </div>} /> */}
+
                 <Route path="/" element={<Login />} />
 
                 <Route
@@ -96,12 +94,12 @@ root.render(
                 <Route path="/home/cart" element={<Cart />} />
                 <Route path="/home/products" element={<Product />} />
                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                <Route path="/home/cart/thankyou" element={<ThankYou />} />
               </Route>
               <Route
                 path="*"
                 element={
                   <div>
-                    {" "}
                     <h1
                       style={{
                         fontSize: "20px",

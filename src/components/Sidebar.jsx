@@ -12,7 +12,9 @@ const Sidebar = ({ hidden }) => {
 
   return (
     <>
-      {currentRoute === "/login" || currentRoute === "/signup" || currentRoute === "/admin/login" ? null : (
+      {currentRoute === "/login" ||
+      currentRoute === "/signup" ||
+      currentRoute === "/admin/login" ? null : (
         <nav id="sidebar">
           <div className="container">
             <div className="sidebar">
@@ -24,7 +26,6 @@ const Sidebar = ({ hidden }) => {
                 </li>
                 <li className="nav-item active">
                   <Link to={"/admin/login"} className="nav-link">
-                    {" "}
                     Dashboard
                   </Link>
                 </li>
@@ -42,8 +43,8 @@ const Sidebar = ({ hidden }) => {
                   <Link
                     className="nav-link"
                     onClick={() => {
-                      localStorage.removeItem("token")
-                      localStorage.removeItem("cartItems")
+                      localStorage.removeItem("token");
+                      localStorage.removeItem("cartItems");
                     }}
                     to={"/login"}
                   >
